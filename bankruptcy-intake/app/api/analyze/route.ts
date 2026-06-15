@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
 import { generateText, Output } from "ai"
-import { anthropic } from "@ai-sdk/anthropic"
+import { createAnthropic } from "@ai-sdk/anthropic"
 import { z } from "zod"
 
 // Avoid the edge runtime when using the AI SDK.
 export const runtime = "nodejs"
 export const maxDuration = 60
+
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY_2,
+})
 
 const analysisSchema = z.object({
   recommendation: z.enum(["Chapter 7", "Chapter 13"]),
