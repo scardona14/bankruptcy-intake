@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { generateText, Output } from "ai"
+import { anthropic } from "@ai-sdk/anthropic"
 import { z } from "zod"
 
 // Avoid the edge runtime when using the AI SDK.
@@ -71,7 +72,7 @@ Be specific to their numbers.`
 
   try {
     const { experimental_output: result } = await generateText({
-      model: "anthropic/claude-sonnet-4.6",
+      model: anthropic("claude-sonnet-4-5"),
       prompt,
       experimental_output: Output.object({ schema: analysisSchema }),
     })
